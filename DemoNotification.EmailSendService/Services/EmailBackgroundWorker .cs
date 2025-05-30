@@ -1,19 +1,23 @@
-﻿namespace DemoNotification.EmailSendService.Services;
+﻿using DemoNotification.EmailSendService.Settings;
+using Microsoft.Extensions.Options;
+
+namespace DemoNotification.EmailSendService.Services;
 
 public class EmailBackgroundWorker : BackgroundService
 {
     private readonly ILogger<EmailBackgroundWorker> _logger;
-    private readonly IConfiguration _configuration;
+    private readonly KafkaSettings _kafkaSettings;
     private readonly EmailSender _emailSender;
     private readonly KafkaConsumerService _kafkaConsumerService;
 
     public EmailBackgroundWorker(ILogger<EmailBackgroundWorker> logger,
         IConfiguration configuration,
+        IOptions<KafkaSettings> kafkaOptinos,
         EmailSender emailSender,
         KafkaConsumerService kafkaConsumerService)
     {
         _logger = logger;
-        _configuration = configuration;
+        _kafkaSettings = kafkaOptinos.Value;
         _emailSender = emailSender;
         _kafkaConsumerService = kafkaConsumerService;
     }
@@ -21,7 +25,7 @@ public class EmailBackgroundWorker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var consumer = _kafkaConsumerService.CreateConsumer();
-        var topic = _configuration["Kafka:Topic"];
+        var topic = _kafkaSettings.Topic;
 
         consumer.Subscribe(topic);
         _logger.LogInformation("Subscribed to Kafka topic {Topic}", topic);

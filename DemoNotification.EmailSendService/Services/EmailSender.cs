@@ -1,5 +1,7 @@
 ﻿using DemoNotification.EmailSendService.Models;
+using DemoNotification.EmailSendService.Settings;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using Polly;
 
@@ -8,13 +10,13 @@ namespace DemoNotification.EmailSendService.Services;
 public class EmailSender
 {
     private readonly ILogger<EmailSender> _logger;
-    private readonly IConfiguration _configuration;
+    private readonly SmtpSettings _smtpSettings;
     private readonly AsyncPolicy _retryPolicy;
 
-    public EmailSender(ILogger<EmailSender> logger, IConfiguration configuration)
+    public EmailSender(ILogger<EmailSender> logger, IOptions<SmtpSettings> smtpOptions)
     {
         _logger = logger;
-        _configuration = configuration;
+        _smtpSettings = smtpOptions.Value;
         _retryPolicy = Policy
             .Handle<Exception>()
             .WaitAndRetryAsync(3, retryAttemt => TimeSpan.FromSeconds(Math.Pow(2, retryAttemt)),
@@ -24,7 +26,7 @@ public class EmailSender
     public async Task SendEmailAsync(NotificationMessage notificationMessage)
     {
         var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("DemoNotification", _configuration["Smtp:From"]));
+        message.From.Add(new MailboxAddress("DemoNotification", _smtpSettings.From));
         message.To.Add(MailboxAddress.Parse(notificationMessage.Email));
         message.Subject = notificationMessage.Subject;
 
@@ -33,13 +35,11 @@ public class EmailSender
             Text = notificationMessage.Message,
         };
 
-        _logger.LogInformation("Config: {Host}, {Port}, {UserName}, {Password}", _configuration["Smtp:Host"], _configuration["Smtp:Port"], _configuration["Smtp:Username"], _configuration["Smtp:Password"]);
-
         await _retryPolicy.ExecuteAndCaptureAsync(async () =>
         {
             using var client = new SmtpClient();
-            await client.ConnectAsync(_configuration["Smtp:Host"], int.Parse(_configuration["Smtp:Port"]), false);
-            await client.AuthenticateAsync(_configuration["Smtp:Username"], _configuration["Smtp:Password"]);
+            await client.ConnectAsync(_smtpSettings.Host, _smtpSettings.Port, false);
+            await client.AuthenticateAsync(_smtpSettings.Username, _smtpSettings.Password);
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
         });

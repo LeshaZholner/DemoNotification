@@ -1,5 +1,7 @@
 ﻿using Confluent.Kafka;
 using DemoNotification.EmailSendService.Models;
+using DemoNotification.EmailSendService.Settings;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace DemoNotification.EmailSendService.Services;
@@ -7,20 +9,20 @@ namespace DemoNotification.EmailSendService.Services;
 public class KafkaConsumerService
 {
     private readonly ILogger<KafkaConsumerService> _logger;
-    private readonly IConfiguration _configuration;
+    private readonly KafkaSettings _kafkaSettings;
 
-    public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IConfiguration configuration)
+    public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaSettings> kafkaOptions)
     {
         _logger = logger;
-        _configuration = configuration;
+        _kafkaSettings = kafkaOptions.Value;
     }
 
     public IConsumer<Ignore, string> CreateConsumer()
     {
         var config = new ConsumerConfig
         {
-            BootstrapServers = _configuration["Kafka:BootstrapServers"],
-            GroupId = _configuration["Kafka:GroupId"],
+            BootstrapServers = _kafkaSettings.BootstrapServers,
+            GroupId = _kafkaSettings.GroupId,
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
 
