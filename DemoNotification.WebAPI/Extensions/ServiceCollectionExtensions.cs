@@ -1,7 +1,9 @@
 ﻿using Confluent.Kafka;
 using DemoNotification.WebAPI.Services;
+using DemoNotification.WebAPI.Settings;
 using DemoNotification.WebAPI.Validators;
 using FluentValidation;
+using Microsoft.Extensions.Options;
 
 namespace DemoNotification.WebAPI.Extensions;
 
@@ -13,7 +15,7 @@ public static class ServiceCollectionExtensions
         {
             var config = new ProducerConfig
             {
-                BootstrapServers = configuration["Kafka:BootstrapServers"] ?? string.Empty
+                BootstrapServers = sp.GetService<IOptions<KafkaSettings>>()!.Value.BootstrapServers
             };
 
             return new ProducerBuilder<Null, string>(config).Build();
