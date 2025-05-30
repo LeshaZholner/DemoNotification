@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "1669d2a0-b553-46db-9048-8f97b57ab2c9",
+		"name": "DemoNotification.WebAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23302120",
+		"_collection_link": "https://myteam-0895.postman.co/workspace/DemoNotification~c466dcde-fcec-4c3e-bf50-22a0bd352fcd/collection/23302120-1669d2a0-b553-46db-9048-8f97b57ab2c9?action=share&source=collection_link&creator=23302120"
+	},
+	"item": [
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "SenNotification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"lesha4dev@gmail.com\",\r\n    \"subject\": \"Hello Lesha!\",\r\n    \"message\": \"Hello Lesha. How are you?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NotificationWebAPI_HostAddress}}/api/notification",
+							"host": [
+								"{{NotificationWebAPI_HostAddress}}"
+							],
+							"path": [
+								"api",
+								"notification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
