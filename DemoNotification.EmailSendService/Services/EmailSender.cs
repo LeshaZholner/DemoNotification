@@ -7,7 +7,7 @@ using Polly;
 
 namespace DemoNotification.EmailSendService.Services;
 
-public class EmailSender
+public class EmailSender : IEmailSender
 {
     private readonly ILogger<EmailSender> _logger;
     private readonly SmtpSettings _smtpSettings;
