@@ -31,10 +31,10 @@ services:
       - KafkaSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
     restart: on-failure
 
-  emailservice:
+  notifservice:
     build:
       context: ../
-      dockerfile: DemoNotification.EmailSendService/Dockerfile
+      dockerfile: DemoNotification.NotificationSendService/Dockerfile
     depends_on:
       - kafka
     environment:

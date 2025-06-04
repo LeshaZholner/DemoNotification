@@ -4,11 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-DemoNotification.EmailSendService-b027778a-70cd-4431-8382-f0637a28704b</UserSecretsId>
+    <UserSecretsId>dotnet-DemoNotification.NotificationSendService-e2c3d12f-6f0f-4b3a-969a-d534e0b493f1</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="2.10.0" />
     <PackageReference Include="MailKit" Version="4.12.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
     <PackageReference Include="MimeKit" Version="4.12.0" />

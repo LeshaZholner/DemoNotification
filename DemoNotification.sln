@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNotification.WebAPI", "DemoNotification.WebAPI\DemoNotification.WebAPI.csproj", "{625A2DBF-B3C5-48BA-B7C5-FB771FB0D6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNotification.EmailSendService", "DemoNotification.EmailSendService\DemoNotification.EmailSendService.csproj", "{4CEA6500-B32B-4876-9DB0-5976DDD93776}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNotification.Kafka", "DemoNotification.Kafka\DemoNotification.Kafka.csproj", "{841B5C9E-71DC-4DB5-9539-E86BDAF9A822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNotification.NotificationSendService", "DemoNotification.NotificationSendService\DemoNotification.NotificationSendService.csproj", "{8BE4801F-CACE-47CA-8951-01FC41CFCF61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{625A2DBF-B3C5-48BA-B7C5-FB771FB0D6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625A2DBF-B3C5-48BA-B7C5-FB771FB0D6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625A2DBF-B3C5-48BA-B7C5-FB771FB0D6EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CEA6500-B32B-4876-9DB0-5976DDD93776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CEA6500-B32B-4876-9DB0-5976DDD93776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CEA6500-B32B-4876-9DB0-5976DDD93776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CEA6500-B32B-4876-9DB0-5976DDD93776}.Release|Any CPU.Build.0 = Release|Any CPU
 		{841B5C9E-71DC-4DB5-9539-E86BDAF9A822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{841B5C9E-71DC-4DB5-9539-E86BDAF9A822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{841B5C9E-71DC-4DB5-9539-E86BDAF9A822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{841B5C9E-71DC-4DB5-9539-E86BDAF9A822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE4801F-CACE-47CA-8951-01FC41CFCF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE4801F-CACE-47CA-8951-01FC41CFCF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE4801F-CACE-47CA-8951-01FC41CFCF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE4801F-CACE-47CA-8951-01FC41CFCF61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

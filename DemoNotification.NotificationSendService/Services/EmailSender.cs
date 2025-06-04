@@ -1,11 +1,11 @@
-﻿using DemoNotification.EmailSendService.Models;
-using DemoNotification.EmailSendService.Settings;
+﻿using DemoNotification.NotificationSendService.Models;
+using DemoNotification.NotificationSendService.Settings;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Polly;
 
-namespace DemoNotification.EmailSendService.Services;
+namespace DemoNotification.NotificationSendService.Services;
 
 public class EmailSender : IEmailSender
 {
@@ -23,7 +23,7 @@ public class EmailSender : IEmailSender
                 (ex, time) => _logger.LogWarning(ex, "Retrying email send in {Delay}", time));
     }
 
-    public async Task SendEmailAsync(NotificationMessage notificationMessage)
+    public async Task SendEmailAsync(EmailNotificationMessage notificationMessage)
     {
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress("DemoNotification", _smtpSettings.From));

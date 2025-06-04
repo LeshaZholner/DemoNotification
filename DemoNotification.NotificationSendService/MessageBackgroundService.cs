@@ -1,6 +1,6 @@
 ﻿using DemoNotification.Kafka.Consumer;
 
-namespace DemoNotification.EmailSendService;
+namespace DemoNotification.NotificationSendService;
 
 public class MessageBackgroundService<TMessage> : BackgroundService
 {

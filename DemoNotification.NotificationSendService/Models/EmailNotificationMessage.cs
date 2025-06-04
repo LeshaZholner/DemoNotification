@@ -1,6 +1,6 @@
-﻿namespace DemoNotification.EmailSendService.Models;
+﻿namespace DemoNotification.NotificationSendService.Models;
 
-public class NotificationMessage
+public class EmailNotificationMessage
 {
     public string Email { get; set; } = string.Empty;
     public string Subject { get; set; } = string.Empty;
