@@ -1,6 +1,6 @@
+using DemoNotification.Kafka;
 using DemoNotification.WebAPI.Extensions;
-using DemoNotification.WebAPI.Settings;
-using OpenTelemetry.Logs;
+using DemoNotification.WebAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.Configure<KafkaSettings>(builder.Configuration.GetSection(nameof(KafkaSettings)));
-
-builder.Services.AddKafkaNotificationQueue(builder.Configuration);
-builder.Services.AddNotificationQueue();
+builder.Services.AddProducer<NotificationRequest>(builder.Configuration.GetSection("KafkaSettings"));
 builder.Services.AddModelsValidators();
 
 var app = builder.Build();

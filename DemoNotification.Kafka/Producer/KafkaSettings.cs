@@ -1,4 +1,4 @@
-﻿namespace DemoNotification.EmailSendService.Settings;
+﻿namespace DemoNotification.Kafka.Producer;
 
 public class KafkaSettings
 {

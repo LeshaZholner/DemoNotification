@@ -1,20 +1,17 @@
-using DemoNotification.EmailSendService.BackgroundServices;
+using DemoNotification.EmailSendService;
 using DemoNotification.EmailSendService.Handlers;
 using DemoNotification.EmailSendService.Models;
 using DemoNotification.EmailSendService.Services;
 using DemoNotification.EmailSendService.Settings;
-using DemoNotification.EmailSendService.Sources;
-using DemoNotification.EmailSendService.Sources.Kafka;
+using DemoNotification.Kafka;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.Configure<KafkaSettings>(builder.Configuration.GetSection(nameof(KafkaSettings)));
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(nameof(SmtpSettings)));
-
-builder.Services.AddHostedService<SendNotificationService>();
-builder.Services.AddSingleton<IMessageConsumer, KafkaMessageConsumer>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
-builder.Services.AddScoped<IMessageHandler<NotificationMessage>, SendNotificationHandler>();
+
+builder.Services.AddConsumer<NotificationMessage, NotificationHandler>(builder.Configuration.GetSection("KafkaSettings"));
+builder.Services.AddHostedService<MessageBackgroundService<NotificationMessage>>();
 
 var host = builder.Build();
 host.Run();

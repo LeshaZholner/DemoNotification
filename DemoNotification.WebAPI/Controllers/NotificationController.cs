@@ -1,5 +1,5 @@
-﻿using DemoNotification.WebAPI.Models;
-using DemoNotification.WebAPI.Services;
+﻿using DemoNotification.Kafka.Producer;
+using DemoNotification.WebAPI.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,15 +11,15 @@ public class NotificationController : ControllerBase
 {
     private readonly ILogger<NotificationController> _logger;
     private readonly IValidator<NotificationRequest> _validator;
-    private readonly INotificationQueueService _notificationQueueService;
+    private readonly IMessageProducer<NotificationRequest> _messageProducer;
 
     public NotificationController(ILogger<NotificationController> logger,
         IValidator<NotificationRequest> validator,
-        INotificationQueueService notificationQueueService)
+        IMessageProducer<NotificationRequest> messageProducer)
     {
         _logger = logger;
         _validator = validator;
-        _notificationQueueService = notificationQueueService;
+        _messageProducer = messageProducer;
     }
 
     [HttpPost]
@@ -36,9 +36,9 @@ public class NotificationController : ControllerBase
                 Errors = validationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage })
             });
         }
-
+        
         _logger.LogInformation("Queuing email to {Email} with subject {Subject}", request.Email, request.Subject);
-        await _notificationQueueService.EnqueueAsync(request);
+        await _messageProducer.ProduceAsync(request, CancellationToken.None);
 
         return Accepted(new
         {
