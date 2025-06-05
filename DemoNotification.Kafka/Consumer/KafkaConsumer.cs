@@ -9,19 +9,19 @@ public class KafkaConsumer<TMessage> : IMessageConsumer<TMessage>
     private readonly IConsumer<string, TMessage> _consumer;
     private readonly KafkaSettings _kafkaSettings;
 
-    public KafkaConsumer(IMessageHandler<TMessage> messageHandler, IOptions<KafkaSettings> kafkaSettings)
+    public KafkaConsumer(IMessageHandler<TMessage> messageHandler, IOptionsMonitor<KafkaSettings> kafkaSettings)
     {
         _messageHandler = messageHandler;
+        _kafkaSettings = kafkaSettings.Get(typeof(TMessage).Name);
         var config = new ConsumerConfig
         {
-            BootstrapServers = kafkaSettings.Value.BootstrapServers,
-            GroupId = kafkaSettings.Value.GroupId,
+            BootstrapServers = _kafkaSettings.BootstrapServers,
+            GroupId = _kafkaSettings.GroupId,
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
         _consumer = new ConsumerBuilder<string, TMessage>(config)
             .SetValueDeserializer(new KafkaValueDeserializer<TMessage>())
             .Build();
-        _kafkaSettings = kafkaSettings.Value;
     }
 
     public async Task ConsumeAsync(CancellationToken cancellationToken)

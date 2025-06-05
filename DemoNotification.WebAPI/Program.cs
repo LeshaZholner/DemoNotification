@@ -1,6 +1,7 @@
 using DemoNotification.Kafka;
 using DemoNotification.WebAPI.Extensions;
 using DemoNotification.WebAPI.Models;
+using DemoNotification.WebAPI.Models.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddProducer<NotificationRequest>(builder.Configuration.GetSection("KafkaSettings"));
+builder.Services.AddProducer<EmailNotificationMessage>(builder.Configuration.GetSection("KafkaEmailSettings"));
+builder.Services.AddProducer<TelegramNotificationMessage>(builder.Configuration.GetSection("KafkaTgSettings"));
+
 builder.Services.AddModelsValidators();
 
 var app = builder.Build();

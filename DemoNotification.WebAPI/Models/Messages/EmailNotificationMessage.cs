@@ -1,9 +1,8 @@
-﻿namespace DemoNotification.WebAPI.Models;
+﻿namespace DemoNotification.WebAPI.Models.Messages;
 
-public class NotificationRequest
+public class EmailNotificationMessage
 {
     public string Email { get; set; } = string.Empty;
-    public string ChatId { get; set; } = string.Empty;
     public string Subject { get; set; } = string.Empty;
     public string Message { get; set; } = string.Empty;
 }

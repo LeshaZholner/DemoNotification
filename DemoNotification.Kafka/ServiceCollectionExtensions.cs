@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection serviceCollection, IConfigurationSection configurationSection)
         where THandler : class, IMessageHandler<TMessage>
     {
-        serviceCollection.Configure<Consumer.KafkaSettings>(configurationSection);
+        serviceCollection.Configure<Consumer.KafkaSettings>(typeof(TMessage).Name, configurationSection);
         serviceCollection.AddSingleton<IMessageConsumer<TMessage>, KafkaConsumer<TMessage>>();
         serviceCollection.AddSingleton<IMessageHandler<TMessage>, THandler>();
 
@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddProducer<TMessage>(this IServiceCollection serviceCollection, IConfigurationSection configurationSection)
     {
-        serviceCollection.Configure<Producer.KafkaSettings>(configurationSection);
+        serviceCollection.Configure<Producer.KafkaSettings>(typeof(TMessage).Name, configurationSection);
         serviceCollection.AddSingleton<IMessageProducer<TMessage>, KafkaProducer<TMessage>>();
 
         return serviceCollection;

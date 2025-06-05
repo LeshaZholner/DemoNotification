@@ -44,6 +44,6 @@ public class EmailSender : IEmailSender
             await client.DisconnectAsync(true);
         });
 
-        _logger.LogInformation("Email sent to {Recipient}", notificationMessage.Email);
+        _logger.LogInformation("Email -> Message sent to {Recipient}", notificationMessage.Email);
     }
 }

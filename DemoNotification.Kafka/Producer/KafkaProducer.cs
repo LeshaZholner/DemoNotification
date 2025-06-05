@@ -8,9 +8,9 @@ public class KafkaProducer<TMessage> : IMessageProducer<TMessage>
     private readonly KafkaSettings _kafkaSettings;
     private readonly IProducer<string, TMessage> _producer;
 
-    public KafkaProducer(IOptions<KafkaSettings> kafkaSettings)
+    public KafkaProducer(IOptionsMonitor<KafkaSettings> kafkaSettings)
     {
-        _kafkaSettings = kafkaSettings.Value;
+        _kafkaSettings = kafkaSettings.Get(typeof(TMessage).Name);
 
         var config = new ProducerConfig
         {
@@ -20,7 +20,6 @@ public class KafkaProducer<TMessage> : IMessageProducer<TMessage>
         _producer = new ProducerBuilder<string, TMessage>(config)
             .SetValueSerializer(new KafkaValueSerializer<TMessage>())
             .Build();
-
     }
 
     public async Task ProduceAsync(TMessage message, CancellationToken cancellationToken)

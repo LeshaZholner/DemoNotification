@@ -28,7 +28,8 @@ services:
     depends_on:
       - kafka
     environment:
-      - KafkaSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
+      - KafkaEmailSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
+      - KafkaTgSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
     restart: on-failure
 
   notifservice:
@@ -38,10 +39,12 @@ services:
     depends_on:
       - kafka
     environment:
-      - KafkaSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
+      - KafkaEmailSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
+      - KafkaTgSettings__BootstrapServers=${KAFKA__BOOTSTRAPSERVERS}
       - SmtpSettings__Host=${SMTP__HOST}
       - SmtpSettings__Port=${SMTP__PORT}
       - SmtpSettings__Username=${SMTP__USERNAME}
       - SmtpSettings__Password=${SMTP__PASSWORD}
       - SmtpSettings__From=${SMTP__FROM}
+      - TelegramSettings__Token=${TG__TOKEN}
     restart: on-failure

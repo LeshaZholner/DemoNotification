@@ -11,6 +11,9 @@ namespace DemoNotification.WebAPI.Validators
                 .NotEmpty().WithMessage("Email is required.")
                 .EmailAddress().WithMessage("Invalid email format.");
 
+            RuleFor(x => x.ChatId)
+                .NotEmpty().WithMessage("ChatId is required.");
+
             RuleFor(x => x.Subject)
                 .NotEmpty().WithMessage("Subject is required.")
                 .MaximumLength(100).WithMessage("Subject cannot exceed 100 characters.");

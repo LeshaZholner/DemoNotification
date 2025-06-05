@@ -19,12 +19,12 @@ public class EmailNotificationHandler : IMessageHandler<EmailNotificationMessage
     {
         try
         {
-            _logger.LogInformation("Processing message for {Email}", message.Email);
+            _logger.LogInformation("Email -> Processing message for {Email}", message.Email);
             await _emailSender.SendEmailAsync(message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unexpected error in SendNotificationHandler {errorMessage}", ex.Message);
+            _logger.LogError(ex, "Email -> Unexpected error in EmailNotificationHandler {errorMessage}", ex.Message);
         }
     }
 }
