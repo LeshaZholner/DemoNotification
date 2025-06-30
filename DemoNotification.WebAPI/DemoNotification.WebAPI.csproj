@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoNotification.Core\DemoNotification.Core.csproj" />
     <ProjectReference Include="..\DemoNotification.Kafka\DemoNotification.Kafka.csproj" />
   </ItemGroup>
 

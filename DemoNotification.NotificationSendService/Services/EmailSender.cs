@@ -3,6 +3,7 @@ using DemoNotification.NotificationSendService.Settings;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using MimeKit.Text;
 using Polly;
 
 namespace DemoNotification.NotificationSendService.Services;
@@ -30,7 +31,7 @@ public class EmailSender : IEmailSender
         message.To.Add(MailboxAddress.Parse(notificationMessage.Email));
         message.Subject = notificationMessage.Subject;
 
-        message.Body = new TextPart("plain")
+        message.Body = new TextPart(TextFormat.Html)
         {
             Text = notificationMessage.Message,
         };
