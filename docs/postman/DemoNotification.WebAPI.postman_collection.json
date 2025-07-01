@@ -11,13 +11,13 @@
 			"name": "Notification",
 			"item": [
 				{
-					"name": "SenNotification",
+					"name": "SendNotification",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"lesha4dev@gmail.com\",\r\n    \"subject\": \"Hello Lesha!\",\r\n    \"message\": \"Hello Lesha. How are you?\"\r\n}",
+							"raw": "{\r\n    \"email\": \"lesha4dev@gmail.com\",\r\n    \"chatId\": \"-4744777748\",\r\n    \"subject\": \"With TG BOT\",\r\n    \"message\": \"Hello! How are you?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -32,6 +32,34 @@
 							"path": [
 								"api",
 								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendNotificationForm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\":\r\n    {\r\n        \"userName\": \"Lesha\",\r\n        \"email\": \"test@gmail.com\",\r\n        \"comment\": \"Hello everyone!\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NotificationWebAPI_HostAddress}}/api/notification/791D1883-BDC9-42A5-BB50-F225DF972A8C",
+							"host": [
+								"{{NotificationWebAPI_HostAddress}}"
+							],
+							"path": [
+								"api",
+								"notification",
+								"791D1883-BDC9-42A5-BB50-F225DF972A8C"
 							]
 						}
 					},
